@@ -13,27 +13,37 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
   @nullable
-  String get name;
+  String get email;
 
   @nullable
-  String get email;
+  @BuiltValueField(wireName: 'display_name')
+  String get displayName;
 
   @nullable
   @BuiltValueField(wireName: 'photo_url')
   String get photoUrl;
 
   @nullable
-  String get password;
+  String get uid;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_time')
+  DateTime get createdTime;
+
+  @nullable
+  @BuiltValueField(wireName: 'phone_number')
+  String get phoneNumber;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
-    ..name = ''
     ..email = ''
+    ..displayName = ''
     ..photoUrl = ''
-    ..password = '';
+    ..uid = ''
+    ..phoneNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -48,25 +58,31 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 }
 
 Map<String, dynamic> createUsersRecordData({
-  String name,
   String email,
+  String displayName,
   String photoUrl,
-  String password,
+  String uid,
+  DateTime createdTime,
+  String phoneNumber,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
         UsersRecord((u) => u
-          ..name = name
           ..email = email
+          ..displayName = displayName
           ..photoUrl = photoUrl
-          ..password = password));
+          ..uid = uid
+          ..createdTime = createdTime
+          ..phoneNumber = phoneNumber));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
-    ..name = dummyString
     ..email = dummyString
+    ..displayName = dummyString
     ..photoUrl = dummyImagePath
-    ..password = dummyString;
+    ..uid = dummyString
+    ..createdTime = dummyTimestamp
+    ..phoneNumber = dummyString;
   return builder.build();
 }
 

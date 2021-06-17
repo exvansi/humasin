@@ -100,7 +100,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
+                          padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
                           child: Text(
                             'Selamat Datang,',
                             style: FlutterFlowTheme.subtitle2.override(
