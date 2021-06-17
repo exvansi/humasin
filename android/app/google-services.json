@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869768631509",
+    "project_id": "humasin-7d29f",
+    "storage_bucket": "humasin-7d29f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869768631509:android:dbf72df797a25fed887e5c",
+        "android_client_info": {
+          "package_name": "com.flutterflow.humasin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869768631509-d7cov670p6bg9472521m8phna7fcpdf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDPyh6fQBHhIK4Fm3vh5_PeGzommEfQMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869768631509-d7cov670p6bg9472521m8phna7fcpdf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
