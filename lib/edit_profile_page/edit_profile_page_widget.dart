@@ -1,27 +1,36 @@
 import '../auth/auth_util.dart';
-import '../edit_profile_page/edit_profile_page_widget.dart';
+import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login_page/login_page_widget.dart';
+import '../flutter_flow/upload_media.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AccountPageWidget extends StatefulWidget {
-  AccountPageWidget({Key key}) : super(key: key);
+class EditProfilePageWidget extends StatefulWidget {
+  EditProfilePageWidget({Key key}) : super(key: key);
 
   @override
-  _AccountPageWidgetState createState() => _AccountPageWidgetState();
+  _EditProfilePageWidgetState createState() => _EditProfilePageWidgetState();
 }
 
-class _AccountPageWidgetState extends State<AccountPageWidget> {
+class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
+  String uploadedFileUrl = '';
+  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    textController = TextEditingController(text: currentUserDisplayName);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -42,8 +51,8 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        onPressed: () {
-                          print('IconButton pressed ...');
+                        onPressed: () async {
+                          Navigator.pop(context);
                         },
                         icon: Icon(
                           Icons.arrow_back_rounded,
@@ -59,20 +68,60 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: 120,
-                          height: 120,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.network(
-                            currentUserPhoto,
-                          ),
-                        )
-                      ],
+                    Align(
+                      alignment: Alignment(0, 0),
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        child: Stack(
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                final selectedMedia = await selectMedia();
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                      context, 'Uploading file...',
+                                      showLoading: true);
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl = downloadUrl);
+                                    showUploadMessage(context, 'Success!');
+                                  } else {
+                                    showUploadMessage(
+                                        context, 'Failed to upload media');
+                                  }
+                                }
+                              },
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  currentUserPhoto,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment(0, 0.1),
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Color(0x6BFFFFFF),
+                                size: 40,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -83,7 +132,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Profil User',
+                        'Edit Profil',
                         style: FlutterFlowTheme.title2.override(
                           fontFamily: 'DM Sans',
                           color: FlutterFlowTheme.tertiaryColor,
@@ -133,12 +182,43 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                   color: FlutterFlowTheme.secondaryColor,
                                   size: 24,
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text(
-                                    currentUserDisplayName,
-                                    style: FlutterFlowTheme.subtitle2.override(
-                                      fontFamily: 'DM Sans',
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    child: TextFormField(
+                                      controller: textController,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        hintText: 'Nama',
+                                        hintStyle:
+                                            FlutterFlowTheme.bodyText1.override(
+                                          fontFamily: 'DM Sans',
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(4.0),
+                                            topRight: Radius.circular(4.0),
+                                          ),
+                                        ),
+                                      ),
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'DM Sans',
+                                      ),
                                     ),
                                   ),
                                 )
@@ -169,10 +249,10 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                   size: 24,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                                   child: Text(
                                     currentUserEmail,
-                                    style: FlutterFlowTheme.subtitle2.override(
+                                    style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'DM Sans',
                                     ),
                                   ),
@@ -191,41 +271,19 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditProfilePageWidget(),
-                                ),
+                              final displayName = textController.text;
+                              final photoUrl = uploadedFileUrl;
+
+                              final usersRecordData = createUsersRecordData(
+                                displayName: displayName,
+                                photoUrl: photoUrl,
                               );
+
+                              await currentUserReference
+                                  .update(usersRecordData);
+                              Navigator.pop(context);
                             },
-                            text: 'Edit Profil',
-                            options: FFButtonOptions(
-                              width: 130,
-                              height: 40,
-                              color: FlutterFlowTheme.secondaryColor,
-                              textStyle: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'DM Sans',
-                                color: Colors.white,
-                              ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
-                            ),
-                          ),
-                          FFButtonWidget(
-                            onPressed: () async {
-                              await signOut();
-                              await Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginPageWidget(),
-                                ),
-                                (r) => false,
-                              );
-                            },
-                            text: 'Log Out',
+                            text: 'Save',
                             options: FFButtonOptions(
                               width: 130,
                               height: 40,

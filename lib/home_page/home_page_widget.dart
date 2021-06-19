@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../login_page/login_page_widget.dart';
@@ -76,9 +77,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                             child: AutoSizeText(
-                              'Layanan\\nHumas Internal',
+                              'Layanan Humas Internal',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.title1.override(
                                 fontFamily: 'Rubik',
@@ -121,40 +122,59 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         )
                       ],
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Text(
-                            'Trivan',
-                            style: FlutterFlowTheme.subtitle1.override(
-                              fontFamily: 'DM Sans',
-                              color: Color(0xFF00BCD4),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment(0, 0),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+                    StreamBuilder<List<UsersRecord>>(
+                      stream: queryUsersRecord(
+                        singleRecord: true,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        List<UsersRecord> rowUsersRecordList = snapshot.data;
+                        // Customize what your widget looks like with no query results.
+                        if (snapshot.data.isEmpty) {
+                          // return Container();
+                          // For now, we'll just include some dummy data.
+                          rowUsersRecordList = createDummyUsersRecord(count: 1);
+                        }
+                        final rowUsersRecord = rowUsersRecordList.first;
+                        return Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Text(
+                                rowUsersRecord.displayName,
+                                style: FlutterFlowTheme.subtitle1.override(
+                                  fontFamily: 'DM Sans',
+                                  color: Color(0xFF00BCD4),
+                                ),
                               ),
-                              child: Image.network(
-                                'https://picsum.photos/seed/100/600',
-                                fit: BoxFit.contain,
-                              ),
                             ),
-                          ),
-                        )
-                      ],
+                            Align(
+                              alignment: Alignment(0, 0),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    rowUsersRecord.photoUrl,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
                     )
                   ],
                 ),
@@ -350,15 +370,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                           ),
                                         ),
-                                        Text(
-                                          'Pemanfaatan\\nRuang Studio',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.bodyText2
-                                              .override(
-                                            fontFamily: 'DM Sans',
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
-                                            fontWeight: FontWeight.w500,
+                                        Align(
+                                          alignment: Alignment(0, 0),
+                                          child: Text(
+                                            'Pemanfaatan Ruang Studio',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.bodyText2
+                                                .override(
+                                              fontFamily: 'DM Sans',
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         )
                                       ],
@@ -384,7 +407,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                         Text(
-                                          'Penerimaan\\nKunjungan',
+                                          'Penerimaan Kunjungan',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.bodyText2
                                               .override(

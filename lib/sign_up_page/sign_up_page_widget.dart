@@ -1,11 +1,10 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login_page/login_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 class SignUpPageWidget extends StatefulWidget {
   SignUpPageWidget({Key key}) : super(key: key);
@@ -18,6 +17,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
   TextEditingController cPasswordDaftarController;
   bool passwordVisibility;
   TextEditingController emailDaftarController;
+  TextEditingController namaDaftarController;
   TextEditingController passwordDaftarController;
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,6 +28,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
     cPasswordDaftarController = TextEditingController();
     passwordVisibility = false;
     emailDaftarController = TextEditingController();
+    namaDaftarController = TextEditingController();
     passwordDaftarController = TextEditingController();
     passwordVisibility = false;
   }
@@ -83,11 +84,64 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           child: TextFormField(
+                            controller: namaDaftarController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: 'Nama',
+                              hintStyle: GoogleFonts.getFont(
+                                'Roboto',
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FontStyle.italic,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                            ),
+                            style: GoogleFonts.getFont(
+                              'Roboto',
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 40, 20),
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Color(0x66EEEEEE),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                          child: TextFormField(
                             controller: emailDaftarController,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: GoogleFonts.getFont(
+                              hintText: 'Email',
+                              hintStyle: GoogleFonts.getFont(
                                 'Roboto',
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,
@@ -140,8 +194,8 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                             controller: passwordDaftarController,
                             obscureText: !passwordVisibility,
                             decoration: InputDecoration(
-                              labelText: 'Password',
-                              labelStyle: GoogleFonts.getFont(
+                              hintText: 'Password',
+                              hintStyle: GoogleFonts.getFont(
                                 'Roboto',
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,
@@ -205,8 +259,8 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                             controller: cPasswordDaftarController,
                             obscureText: !passwordVisibility,
                             decoration: InputDecoration(
-                              labelText: 'Confirm Password',
-                              labelStyle: GoogleFonts.getFont(
+                              hintText: 'Confirm Password',
+                              hintStyle: GoogleFonts.getFont(
                                 'Roboto',
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,
@@ -278,16 +332,21 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                           return;
                         }
 
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.topToBottom,
-                            duration: Duration(milliseconds: 5),
-                            reverseDuration: Duration(milliseconds: 5),
-                            child: LoginPageWidget(),
-                          ),
-                          (r) => false,
+                        final email = emailDaftarController.text;
+                        final displayName = namaDaftarController.text;
+                        final createdTime = getCurrentTimestamp;
+
+                        final usersRecordData = createUsersRecordData(
+                          email: email,
+                          displayName: displayName,
+                          createdTime: createdTime,
                         );
+
+                        await UsersRecord.collection
+                            .doc(user.uid)
+                            .update(usersRecordData);
+
+                        Navigator.pop(context);
                       },
                       text: 'Mulai',
                       options: FFButtonOptions(
@@ -324,16 +383,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
             padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
             child: IconButton(
               onPressed: () async {
-                await Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.topToBottom,
-                    duration: Duration(milliseconds: 5),
-                    reverseDuration: Duration(milliseconds: 5),
-                    child: LoginPageWidget(),
-                  ),
-                  (r) => false,
-                );
+                Navigator.pop(context);
               },
               icon: Icon(
                 Icons.arrow_back_rounded,
