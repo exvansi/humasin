@@ -332,14 +332,10 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                           return;
                         }
 
-                        final email = emailDaftarController.text;
                         final displayName = namaDaftarController.text;
-                        final createdTime = getCurrentTimestamp;
 
                         final usersRecordData = createUsersRecordData(
-                          email: email,
                           displayName: displayName,
-                          createdTime: createdTime,
                         );
 
                         await UsersRecord.collection
