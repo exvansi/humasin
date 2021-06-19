@@ -73,13 +73,18 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Status\\nTiket Anda',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.title1.override(
-                                fontFamily: 'DM Sans',
-                                color: FlutterFlowTheme.tertiaryColor,
-                                fontSize: 35,
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Text(
+                                  'Status Tiket Anda',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.title1.override(
+                                    fontFamily: 'DM Sans',
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                    fontSize: 40,
+                                  ),
+                                ),
                               ),
                             )
                           ],
