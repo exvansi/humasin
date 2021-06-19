@@ -93,7 +93,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                 fontWeight: FontWeight.normal,
                                 fontStyle: FontStyle.italic,
                               ),
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
@@ -103,7 +103,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   topRight: Radius.circular(4.0),
                                 ),
                               ),
-                              focusedBorder: UnderlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
@@ -147,7 +147,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                 fontWeight: FontWeight.normal,
                                 fontStyle: FontStyle.italic,
                               ),
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
@@ -157,7 +157,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   topRight: Radius.circular(4.0),
                                 ),
                               ),
-                              focusedBorder: UnderlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
@@ -212,7 +212,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                 fontWeight: FontWeight.normal,
                                 fontStyle: FontStyle.italic,
                               ),
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
@@ -222,7 +222,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   topRight: Radius.circular(4.0),
                                 ),
                               ),
-                              focusedBorder: UnderlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,

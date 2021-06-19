@@ -50,7 +50,7 @@ class FlutterFlowTheme {
         'DM Sans',
         color: Color(0xFF424242),
         fontWeight: FontWeight.normal,
-        fontSize: 14,
+        fontSize: 12,
       );
 }
 

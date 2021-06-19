@@ -1,5 +1,7 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../login_page/login_page_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,8 +49,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 30, 10, 0),
                               child: IconButton(
-                                onPressed: () {
-                                  print('IconButton pressed ...');
+                                onPressed: () async {
+                                  await signOut();
+                                  await Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginPageWidget(),
+                                    ),
+                                    (r) => false,
+                                  );
                                 },
                                 icon: Icon(
                                   Icons.logout,
@@ -69,7 +78,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                             child: AutoSizeText(
-                              'Layanan\nHumas Internal',
+                              'Layanan\\nHumas Internal',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.title1.override(
                                 fontFamily: 'Rubik',
@@ -342,7 +351,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                         Text(
-                                          'Pemanfaatan\nRuang Studio',
+                                          'Pemanfaatan\\nRuang Studio',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.bodyText2
                                               .override(
@@ -375,7 +384,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                         Text(
-                                          'Penerimaan\nKunjungan',
+                                          'Penerimaan\\nKunjungan',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.bodyText2
                                               .override(

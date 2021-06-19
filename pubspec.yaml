@@ -36,6 +36,7 @@ dependencies:
   intl:
   json_serializable: ^3.5.1
   latlong:
+  location:
   page_transition:
   rxdart: ^0.25.0
   sign_in_with_apple: ^2.5.4

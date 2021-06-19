@@ -51,7 +51,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                               },
                               icon: Icon(
                                 Icons.arrow_back_rounded,
-                                color: FlutterFlowTheme.tertiaryColor,
+                                color: Colors.white,
                                 size: 25,
                               ),
                               iconSize: 25,
@@ -66,7 +66,7 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Status\nTiket Anda',
+                              'Status\\nTiket Anda',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.title1.override(
                                 fontFamily: 'DM Sans',

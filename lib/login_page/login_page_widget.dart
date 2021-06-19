@@ -40,6 +40,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         key: scaffoldKey,
         body: Column(
           mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               width: double.infinity,
@@ -169,7 +170,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               Align(
                                 alignment: Alignment(0, 0.7),
                                 child: Text(
-                                  'Layanan Pemanfaatan\nRuang Studio',
+                                  'Layanan Pemanfaatan\\nRuang Studio',
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.title2.override(
                                     fontFamily: 'DM Sans',
@@ -194,7 +195,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               Align(
                                 alignment: Alignment(0, 0.7),
                                 child: Text(
-                                  'Layanan Publikasi\ndan Percetakan',
+                                  'Layanan Publikasi\\ndan Percetakan',
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.title2.override(
                                     fontFamily: 'DM Sans',
@@ -219,7 +220,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               Align(
                                 alignment: Alignment(0, 0.7),
                                 child: Text(
-                                  'Layanan Penerimaan\nKunjungan',
+                                  'Layanan Penerimaan\\nKunjungan',
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.title2.override(
                                     fontFamily: 'DM Sans',
@@ -415,7 +416,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             fontFamily: 'DM Sans',
                           ),
                           textAlign: TextAlign.center,
-                          keyboardType: TextInputType.emailAddress,
                         ),
                       ),
                     ),
@@ -443,11 +443,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
                                 await Navigator.pushAndRemoveUntil(
                                   context,
-                                  PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    duration: Duration(milliseconds: 5),
-                                    reverseDuration: Duration(milliseconds: 5),
-                                    child: NavBarPage(initialPage: 'HomePage'),
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'HomePage'),
                                   ),
                                   (r) => false,
                                 );
