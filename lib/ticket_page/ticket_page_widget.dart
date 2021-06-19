@@ -1,5 +1,6 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -46,8 +47,15 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             IconButton(
-                              onPressed: () {
-                                print('IconButton pressed ...');
+                              onPressed: () async {
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'HomePage'),
+                                  ),
+                                  (r) => false,
+                                );
                               },
                               icon: Icon(
                                 Icons.arrow_back_rounded,
