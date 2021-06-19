@@ -1,3 +1,9 @@
+import '../add_cetak_page/add_cetak_page_widget.dart';
+import '../add_desain_page/add_desain_page_widget.dart';
+import '../add_kunjungan_page/add_kunjungan_page_widget.dart';
+import '../add_peliputan_page/add_peliputan_page_widget.dart';
+import '../add_promosi_page/add_promosi_page_widget.dart';
+import '../add_studio_page/add_studio_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -48,7 +54,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Align(
                             alignment: Alignment(1, 0),
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 30, 10, 0),
+                              padding: EdgeInsets.fromLTRB(0, 40, 10, 0),
                               child: IconButton(
                                 onPressed: () async {
                                   await signOut();
@@ -226,14 +232,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 10, 0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                'assets/images/Layanan Desain.png',
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.contain,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddDesainPageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  'assets/images/Layanan Desain.png',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -258,14 +275,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 10, 0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                'assets/images/Layanan Promosi.png',
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.contain,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddPromosiPageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  'assets/images/Layanan Promosi.png',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -278,7 +306,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             fontFamily: 'DM Sans',
                                             color:
                                                 FlutterFlowTheme.primaryColor,
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         )
@@ -292,14 +320,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 10, 0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: Image.asset(
-                                                'assets/images/Layanan Peliputan dan Dokumentasi.png',
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.contain,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddPeliputanPageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                child: Image.asset(
+                                                  'assets/images/Layanan Peliputan dan Dokumentasi.png',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -325,20 +364,31 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 20, 0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                'assets/images/Layanan Publikasi dan Percetakan.png',
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.contain,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddCetakPageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  'assets/images/Layanan Publikasi dan Percetakan.png',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
                                         Text(
-                                          'Publikasi dan Percetakan',
+                                          'Percetakan',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.bodyText2
                                               .override(
@@ -358,14 +408,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 20, 0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: Image.asset(
-                                                'assets/images/Layanan Pemanfaatan Ruang Studio.png',
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.contain,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddStudioPageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                child: Image.asset(
+                                                  'assets/images/Layanan Pemanfaatan Ruang Studio.png',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -394,14 +455,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 20, 0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                'assets/images/Layanan Penerimaan Kunjungan.png',
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.contain,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddKunjunganPageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  'assets/images/Layanan Penerimaan Kunjungan.png',
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
