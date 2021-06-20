@@ -130,6 +130,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                     StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
+                        queryBuilder: (usersRecord) => usersRecord
+                            .where('email', isEqualTo: currentUserEmail),
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {

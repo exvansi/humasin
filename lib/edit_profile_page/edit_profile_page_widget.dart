@@ -31,6 +31,8 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
   Widget build(BuildContext context) {
     return StreamBuilder<List<UsersRecord>>(
       stream: queryUsersRecord(
+        queryBuilder: (usersRecord) =>
+            usersRecord.where('email', isEqualTo: currentUserEmail),
         singleRecord: true,
       ),
       builder: (context, snapshot) {
@@ -302,7 +304,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                     photoUrl: photoUrl,
                                   );
 
-                                  await currentUserReference
+                                  await editProfilePageUsersRecord.reference
                                       .update(usersRecordData);
                                   Navigator.pop(context);
                                 },

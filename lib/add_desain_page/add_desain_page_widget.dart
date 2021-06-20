@@ -60,6 +60,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                   final kategori = 'desain';
                   final keteranganDesain = textController2.text;
                   final deadlineDesain = datePicked;
+                  final user = currentUserReference;
 
                   final desainRecordData = createDesainRecordData(
                     judulDesain: judulDesain,
@@ -67,6 +68,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                     kategori: kategori,
                     keteranganDesain: keteranganDesain,
                     deadlineDesain: deadlineDesain,
+                    user: user,
                   );
 
                   await DesainRecord.collection.doc().set(desainRecordData);

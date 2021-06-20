@@ -35,6 +35,9 @@ abstract class DesainRecord
   String get kategori;
 
   @nullable
+  DocumentReference get user;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -67,6 +70,7 @@ Map<String, dynamic> createDesainRecordData({
   String keteranganDesain,
   DateTime deadlineDesain,
   String kategori,
+  DocumentReference user,
 }) =>
     serializers.toFirestore(
         DesainRecord.serializer,
@@ -75,7 +79,8 @@ Map<String, dynamic> createDesainRecordData({
           ..jenisDesain = jenisDesain
           ..keteranganDesain = keteranganDesain
           ..deadlineDesain = deadlineDesain
-          ..kategori = kategori));
+          ..kategori = kategori
+          ..user = user));
 
 DesainRecord get dummyDesainRecord {
   final builder = DesainRecordBuilder()

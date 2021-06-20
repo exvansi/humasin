@@ -39,6 +39,9 @@ abstract class PromosiRecord
   String get kategori;
 
   @nullable
+  DocumentReference get user;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -73,6 +76,7 @@ Map<String, dynamic> createPromosiRecordData({
   String imagePromosi,
   String videoPromosi,
   String kategori,
+  DocumentReference user,
 }) =>
     serializers.toFirestore(
         PromosiRecord.serializer,
@@ -82,7 +86,8 @@ Map<String, dynamic> createPromosiRecordData({
           ..waktuTayangPromosi = waktuTayangPromosi
           ..imagePromosi = imagePromosi
           ..videoPromosi = videoPromosi
-          ..kategori = kategori));
+          ..kategori = kategori
+          ..user = user));
 
 PromosiRecord get dummyPromosiRecord {
   final builder = PromosiRecordBuilder()
