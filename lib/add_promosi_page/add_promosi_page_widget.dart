@@ -1,8 +1,11 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/upload_media.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,9 +19,8 @@ class AddPromosiPageWidget extends StatefulWidget {
 
 class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
   DateTime datePicked = DateTime.now();
-  TextEditingController textController2;
   String radioButtonValue;
-  TextEditingController textController1;
+  TextEditingController textController;
   String uploadedFileUrl1 = '';
   String uploadedFileUrl2 = '';
   final formKey = GlobalKey<FormState>();
@@ -27,9 +29,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 =
-        TextEditingController(text: dateTimeFormat('MMMMEEEEd', datePicked));
+    textController = TextEditingController();
   }
 
   @override
@@ -53,8 +53,28 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: IconButton(
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  if (!formKey.currentState.validate()) {
+                    return;
+                  }
+                  final judulPromosi = textController.text;
+                  final mediaPromosi = radioButtonValue;
+                  final waktuTayangPromosi = datePicked;
+                  final imagePromosi = uploadedFileUrl1;
+                  final videoPromosi = uploadedFileUrl2;
+                  final kategori = 'promosi';
+
+                  final promosiRecordData = createPromosiRecordData(
+                    judulPromosi: judulPromosi,
+                    mediaPromosi: mediaPromosi,
+                    waktuTayangPromosi: waktuTayangPromosi,
+                    imagePromosi: imagePromosi,
+                    videoPromosi: videoPromosi,
+                    kategori: kategori,
+                  );
+
+                  await PromosiRecord.collection.doc().set(promosiRecordData);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.add_box_outlined,
@@ -133,7 +153,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                             Align(
                               alignment: Alignment(0, 0),
                               child: TextFormField(
-                                controller: textController1,
+                                controller: textController,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText:
@@ -212,7 +232,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                               options: [
                                 'Instagram',
                                 'Youtube',
-                                'Kombinasi keduanya'
+                                'Instagram dan Youtube'
                               ],
                               onChanged: (value) {
                                 setState(() => radioButtonValue = value);
@@ -393,51 +413,12 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                                     size: 24,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: TextFormField(
-                                      controller: textController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'Tanggal dan Waktu',
-                                        hintStyle:
-                                            FlutterFlowTheme.bodyText2.override(
-                                          fontFamily: 'DM Sans',
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                      ),
-                                      style:
-                                          FlutterFlowTheme.bodyText2.override(
-                                        fontFamily: 'DM Sans',
-                                      ),
-                                      keyboardType: TextInputType.datetime,
-                                      validator: (val) {
-                                        if (val.isEmpty) {
-                                          return 'Field is required';
-                                        }
-
-                                        return null;
-                                      },
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Text(
+                                    dateTimeFormat('MMMMEEEEd', datePicked),
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'DM Sans',
                                     ),
                                   ),
                                 )

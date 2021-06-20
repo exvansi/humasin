@@ -1,6 +1,9 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +17,6 @@ class AddDesainPageWidget extends StatefulWidget {
 
 class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
   DateTime datePicked = DateTime.now();
-  TextEditingController textController3;
   String radioButtonValue;
   TextEditingController textController1;
   TextEditingController textController2;
@@ -26,8 +28,6 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
-    textController3 =
-        TextEditingController(text: dateTimeFormat('MMMMEEEEd', datePicked));
   }
 
   @override
@@ -51,8 +51,26 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: IconButton(
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  if (!formKey.currentState.validate()) {
+                    return;
+                  }
+                  final judulDesain = textController1.text;
+                  final jenisDesain = radioButtonValue;
+                  final kategori = 'desain';
+                  final keteranganDesain = textController2.text;
+                  final deadlineDesain = datePicked;
+
+                  final desainRecordData = createDesainRecordData(
+                    judulDesain: judulDesain,
+                    jenisDesain: jenisDesain,
+                    kategori: kategori,
+                    keteranganDesain: keteranganDesain,
+                    deadlineDesain: deadlineDesain,
+                  );
+
+                  await DesainRecord.collection.doc().set(desainRecordData);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.add_box_outlined,
@@ -349,51 +367,12 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                                     size: 24,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: TextFormField(
-                                      controller: textController3,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'Tanggal dan Waktu',
-                                        hintStyle:
-                                            FlutterFlowTheme.bodyText2.override(
-                                          fontFamily: 'DM Sans',
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                      ),
-                                      style:
-                                          FlutterFlowTheme.bodyText2.override(
-                                        fontFamily: 'DM Sans',
-                                      ),
-                                      keyboardType: TextInputType.datetime,
-                                      validator: (val) {
-                                        if (val.isEmpty) {
-                                          return 'Field is required';
-                                        }
-
-                                        return null;
-                                      },
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Text(
+                                    dateTimeFormat('MMMMEEEEd', datePicked),
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'DM Sans',
                                     ),
                                   ),
                                 )

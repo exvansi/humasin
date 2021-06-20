@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:latlong/latlong.dart';
 
 import 'users_record.dart';
+import 'desain_record.dart';
+import 'promosi_record.dart';
 
 part 'serializers.g.dart';
 
@@ -12,6 +14,8 @@ const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
   UsersRecord,
+  DesainRecord,
+  PromosiRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
@@ -110,4 +114,13 @@ extension GeoPointExtension on LatLng {
 
 extension LatLngExtension on GeoPoint {
   LatLng toLatLng() => LatLng(latitude, longitude);
+}
+
+DocumentReference toRef(String ref) => FirebaseFirestore.instance.doc(ref);
+
+T safeGet<T>(T Function() func) {
+  try {
+    return func();
+  } catch (_) {}
+  return null;
 }
