@@ -42,6 +42,9 @@ abstract class PromosiRecord
   DocumentReference get user;
 
   @nullable
+  String get status;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -50,7 +53,8 @@ abstract class PromosiRecord
     ..mediaPromosi = ''
     ..imagePromosi = ''
     ..videoPromosi = ''
-    ..kategori = '';
+    ..kategori = ''
+    ..status = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('promosi');
@@ -77,6 +81,7 @@ Map<String, dynamic> createPromosiRecordData({
   String videoPromosi,
   String kategori,
   DocumentReference user,
+  String status,
 }) =>
     serializers.toFirestore(
         PromosiRecord.serializer,
@@ -87,7 +92,8 @@ Map<String, dynamic> createPromosiRecordData({
           ..imagePromosi = imagePromosi
           ..videoPromosi = videoPromosi
           ..kategori = kategori
-          ..user = user));
+          ..user = user
+          ..status = status));
 
 PromosiRecord get dummyPromosiRecord {
   final builder = PromosiRecordBuilder()
@@ -96,7 +102,8 @@ PromosiRecord get dummyPromosiRecord {
     ..waktuTayangPromosi = dummyTimestamp
     ..imagePromosi = dummyImagePath
     ..videoPromosi = dummyVideoPath
-    ..kategori = dummyString;
+    ..kategori = dummyString
+    ..status = dummyString;
   return builder.build();
 }
 

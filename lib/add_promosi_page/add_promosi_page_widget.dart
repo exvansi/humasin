@@ -64,6 +64,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                   final videoPromosi = uploadedFileUrl2;
                   final kategori = 'promosi';
                   final user = currentUserReference;
+                  final status = 'Open';
 
                   final promosiRecordData = createPromosiRecordData(
                     judulPromosi: judulPromosi,
@@ -73,6 +74,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                     videoPromosi: videoPromosi,
                     kategori: kategori,
                     user: user,
+                    status: status,
                   );
 
                   await PromosiRecord.collection.doc().set(promosiRecordData);

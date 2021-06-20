@@ -296,7 +296,8 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                             children: [
                               FFButtonWidget(
                                 onPressed: () async {
-                                  final displayName = textController.text;
+                                  final displayName =
+                                      editProfilePageUsersRecord.displayName;
                                   final photoUrl = uploadedFileUrl;
 
                                   final usersRecordData = createUsersRecordData(
