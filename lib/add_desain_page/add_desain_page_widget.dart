@@ -1,6 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_drop_down_template.dart';
+import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +17,7 @@ class AddDesainPageWidget extends StatefulWidget {
 
 class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
   DateTime datePicked = DateTime.now();
-  String dropDownValue;
+  String radioButtonValue;
   TextEditingController textController1;
   TextEditingController textController2;
   final formKey = GlobalKey<FormState>();
@@ -56,7 +56,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                     return;
                   }
                   final judulDesain = textController1.text;
-                  final jenisDesain = dropDownValue;
+                  final jenisDesain = radioButtonValue;
                   final kategori = 'desain';
                   final keteranganDesain = textController2.text;
                   final deadlineDesain = datePicked;
@@ -224,26 +224,25 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                                 ),
                               ),
                             ),
-                            FlutterFlowDropDown(
+                            FlutterFlowRadioButton(
                               options: [
                                 'Desain Grafis',
                                 'Desain Videografis',
                                 'Kombinasi keduanya'
                               ],
                               onChanged: (value) {
-                                setState(() => dropDownValue = value);
+                                setState(() => radioButtonValue = value);
                               },
-                              width: 130,
-                              height: 40,
+                              optionHeight: 25,
                               textStyle: FlutterFlowTheme.bodyText2.override(
                                 fontFamily: 'DM Sans',
                               ),
-                              fillColor: Colors.white,
-                              elevation: 2,
-                              borderColor: Colors.transparent,
-                              borderWidth: 0,
-                              borderRadius: 0,
-                              margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                              buttonPosition: RadioButtonPosition.left,
+                              direction: Axis.vertical,
+                              radioButtonColor: Colors.blue,
+                              toggleable: false,
+                              horizontalAlignment: WrapAlignment.start,
+                              verticalAlignment: WrapCrossAlignment.start,
                             )
                           ],
                         ),
