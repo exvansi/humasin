@@ -251,6 +251,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                                 final dropDownJenisDesainRecord =
                                     dropDownJenisDesainRecordList.first;
                                 return FlutterFlowDropDown(
+                                  initialOption: dropDownValue,
                                   options:
                                       dropDownJenisDesainRecord.jenis.toList(),
                                   onChanged: (value) {

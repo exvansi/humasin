@@ -254,6 +254,7 @@ class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
                                 final dropDownJenisStudioRecord =
                                     dropDownJenisStudioRecordList.first;
                                 return FlutterFlowDropDown(
+                                  initialOption: dropDownValue,
                                   options:
                                       dropDownJenisStudioRecord.jenis.toList(),
                                   onChanged: (value) {

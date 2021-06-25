@@ -255,6 +255,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                                 final dropDownMediaPromosiRecord =
                                     dropDownMediaPromosiRecordList.first;
                                 return FlutterFlowDropDown(
+                                  initialOption: dropDownValue,
                                   options:
                                       dropDownMediaPromosiRecord.media.toList(),
                                   onChanged: (value) {

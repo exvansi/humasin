@@ -263,6 +263,7 @@ class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
                                 final dropDownJenisCetakRecord =
                                     dropDownJenisCetakRecordList.first;
                                 return FlutterFlowDropDown(
+                                  initialOption: dropDownValue,
                                   options:
                                       dropDownJenisCetakRecord.jenis.toList(),
                                   onChanged: (value) {
