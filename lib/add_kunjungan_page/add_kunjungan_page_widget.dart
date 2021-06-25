@@ -293,7 +293,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                                 textAlign: TextAlign.justify,
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    return 'Judul wajib diisi!';
+                                    return 'Tulis nama lengkap Anda terlebih dahulu!';
                                   }
                                   if (val.length < 4) {
                                     return 'Requires at least 4 characters.';
@@ -371,7 +371,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                                 textAlign: TextAlign.justify,
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    return 'Judul wajib diisi!';
+                                    return 'Tulis asal instansi Anda!';
                                   }
                                   if (val.length < 4) {
                                     return 'Requires at least 4 characters.';
@@ -450,7 +450,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                                 keyboardType: TextInputType.multiline,
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Tuliskan keperluan Anda!';
                                   }
 
                                   return null;
@@ -526,7 +526,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                                 keyboardType: TextInputType.phone,
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    return 'Field is required';
+                                    return 'Tuliskan No.HP Anda!';
                                   }
 
                                   return null;
