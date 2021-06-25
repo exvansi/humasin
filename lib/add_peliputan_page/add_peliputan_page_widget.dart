@@ -392,29 +392,20 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text(
-                                'Apakah hasil peliputan akan dipublikasikan?',
+                            CheckboxListTile(
+                              value: checkboxListTileValue ?? false,
+                              onChanged: (newValue) => setState(
+                                  () => checkboxListTileValue = newValue),
+                              title: Text(
+                                'Publikasi',
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'DM Sans',
                                   color: FlutterFlowTheme.primaryColor,
                                 ),
                               ),
-                            ),
-                            CheckboxListTile(
-                              value: checkboxListTileValue ?? true,
-                              onChanged: (newValue) => setState(
-                                  () => checkboxListTileValue = newValue),
-                              title: Text(
-                                'Title',
-                                style: FlutterFlowTheme.title3.override(
-                                  fontFamily: 'DM Sans',
-                                ),
-                              ),
                               subtitle: Text(
-                                'Subtitle',
-                                style: FlutterFlowTheme.subtitle2.override(
+                                'Apakah hasil peliputan akan dipublikasikan?',
+                                style: FlutterFlowTheme.bodyText2.override(
                                   fontFamily: 'DM Sans',
                                 ),
                               ),

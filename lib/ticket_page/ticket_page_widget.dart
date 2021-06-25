@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -181,6 +182,108 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                                                           .override(
                                                         fontFamily: 'DM Sans',
                                                       ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          'Desain Grafis',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'DM Sans',
+                                                          ),
+                                                        ),
+                                                        ToggleIcon(
+                                                          onPressed: () async {
+                                                            final desainGrafis =
+                                                                !listViewDesainRecord
+                                                                    .desainGrafis;
+
+                                                            final desainRecordData =
+                                                                createDesainRecordData(
+                                                              desainGrafis:
+                                                                  desainGrafis,
+                                                            );
+
+                                                            await listViewDesainRecord
+                                                                .reference
+                                                                .update(
+                                                                    desainRecordData);
+                                                          },
+                                                          value:
+                                                              listViewDesainRecord
+                                                                  .desainGrafis,
+                                                          onIcon: Icon(
+                                                            Icons.check_box,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
+                                                          offIcon: Icon(
+                                                            Icons
+                                                                .check_box_outline_blank,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          'Video Grafis',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'DM Sans',
+                                                          ),
+                                                        ),
+                                                        ToggleIcon(
+                                                          onPressed: () async {
+                                                            final desainGrafis =
+                                                                !listViewDesainRecord
+                                                                    .desainGrafis;
+
+                                                            final desainRecordData =
+                                                                createDesainRecordData(
+                                                              desainGrafis:
+                                                                  desainGrafis,
+                                                            );
+
+                                                            await listViewDesainRecord
+                                                                .reference
+                                                                .update(
+                                                                    desainRecordData);
+                                                          },
+                                                          value:
+                                                              listViewDesainRecord
+                                                                  .desainGrafis,
+                                                          onIcon: Icon(
+                                                            Icons.check_box,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
+                                                          offIcon: Icon(
+                                                            Icons
+                                                                .check_box_outline_blank,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
+                                                        )
+                                                      ],
                                                     )
                                                   ],
                                                 ),

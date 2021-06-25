@@ -41,6 +41,14 @@ abstract class DesainRecord
   String get status;
 
   @nullable
+  @BuiltValueField(wireName: 'desain_grafis')
+  bool get desainGrafis;
+
+  @nullable
+  @BuiltValueField(wireName: 'video_grafis')
+  bool get videoGrafis;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -49,7 +57,9 @@ abstract class DesainRecord
     ..jenisDesain = ''
     ..keteranganDesain = ''
     ..kategori = ''
-    ..status = '';
+    ..status = ''
+    ..desainGrafis = false
+    ..videoGrafis = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('desain');
@@ -76,6 +86,8 @@ Map<String, dynamic> createDesainRecordData({
   String kategori,
   DocumentReference user,
   String status,
+  bool desainGrafis,
+  bool videoGrafis,
 }) =>
     serializers.toFirestore(
         DesainRecord.serializer,
@@ -86,7 +98,9 @@ Map<String, dynamic> createDesainRecordData({
           ..deadlineDesain = deadlineDesain
           ..kategori = kategori
           ..user = user
-          ..status = status));
+          ..status = status
+          ..desainGrafis = desainGrafis
+          ..videoGrafis = videoGrafis));
 
 DesainRecord get dummyDesainRecord {
   final builder = DesainRecordBuilder()
@@ -95,7 +109,9 @@ DesainRecord get dummyDesainRecord {
     ..keteranganDesain = dummyString
     ..deadlineDesain = dummyTimestamp
     ..kategori = dummyString
-    ..status = dummyString;
+    ..status = dummyString
+    ..desainGrafis = dummyBoolean
+    ..videoGrafis = dummyBoolean;
   return builder.build();
 }
 
