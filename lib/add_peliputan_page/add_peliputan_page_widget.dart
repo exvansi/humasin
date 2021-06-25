@@ -1,6 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +19,7 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
   TextEditingController textController3;
   TextEditingController textController1;
   TextEditingController textController2;
-  String radioButtonValue;
+  bool checkboxListTileValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -61,7 +60,7 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
                   final judulPeliputan = textController1.text;
                   final tempatPeliputan = textController2.text;
                   final waktuPeliputan = datePicked;
-                  final publikasiPeliputan = radioButtonValue;
+                  final publikasiPeliputan = checkboxListTileValue;
                   final kategori = 'Peliputan';
                   final user = currentUserReference;
                   final status = 'Open';
@@ -403,21 +402,25 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
                                 ),
                               ),
                             ),
-                            FlutterFlowRadioButton(
-                              options: ['Ya', 'Tidak'],
-                              onChanged: (value) {
-                                setState(() => radioButtonValue = value);
-                              },
-                              optionHeight: 25,
-                              textStyle: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'DM Sans',
+                            CheckboxListTile(
+                              value: checkboxListTileValue ?? true,
+                              onChanged: (newValue) => setState(
+                                  () => checkboxListTileValue = newValue),
+                              title: Text(
+                                'Title',
+                                style: FlutterFlowTheme.title3.override(
+                                  fontFamily: 'DM Sans',
+                                ),
                               ),
-                              buttonPosition: RadioButtonPosition.left,
-                              direction: Axis.vertical,
-                              radioButtonColor: Colors.blue,
-                              toggleable: false,
-                              horizontalAlignment: WrapAlignment.start,
-                              verticalAlignment: WrapCrossAlignment.start,
+                              subtitle: Text(
+                                'Subtitle',
+                                style: FlutterFlowTheme.subtitle2.override(
+                                  fontFamily: 'DM Sans',
+                                ),
+                              ),
+                              tileColor: Color(0xFFF5F5F5),
+                              dense: false,
+                              controlAffinity: ListTileControlAffinity.trailing,
                             )
                           ],
                         ),

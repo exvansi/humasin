@@ -39,7 +39,7 @@ abstract class PeliputanRecord
 
   @nullable
   @BuiltValueField(wireName: 'publikasi_peliputan')
-  String get publikasiPeliputan;
+  bool get publikasiPeliputan;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -50,7 +50,7 @@ abstract class PeliputanRecord
     ..tempatPeliputan = ''
     ..kategori = ''
     ..status = ''
-    ..publikasiPeliputan = '';
+    ..publikasiPeliputan = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('peliputan');
@@ -76,7 +76,7 @@ Map<String, dynamic> createPeliputanRecordData({
   String kategori,
   DocumentReference user,
   String status,
-  String publikasiPeliputan,
+  bool publikasiPeliputan,
 }) =>
     serializers.toFirestore(
         PeliputanRecord.serializer,
@@ -96,7 +96,7 @@ PeliputanRecord get dummyPeliputanRecord {
     ..waktuPeliputan = dummyTimestamp
     ..kategori = dummyString
     ..status = dummyString
-    ..publikasiPeliputan = dummyString;
+    ..publikasiPeliputan = dummyBoolean;
   return builder.build();
 }
 
