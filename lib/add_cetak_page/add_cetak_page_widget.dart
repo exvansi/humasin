@@ -1,8 +1,11 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
-import '../flutter_flow/flutter_flow_radio_button.dart';
+import '../flutter_flow/flutter_flow_drop_down_template.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/upload_media.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +20,7 @@ class AddCetakPageWidget extends StatefulWidget {
 class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
   DateTime datePicked = DateTime.now();
   TextEditingController textController4;
-  String radioButtonValue;
+  String dropDownValue;
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
@@ -56,8 +59,34 @@ class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: IconButton(
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  if (!formKey.currentState.validate()) {
+                    return;
+                  }
+                  final judulCetak = textController1.text;
+                  final mediaCetak = dropDownValue;
+                  final jumlahCetak = int.parse(textController2.text);
+                  final ukuranCetak = textController3.text;
+                  final imageCetak = uploadedFileUrl;
+                  final deadlineCetak = datePicked;
+                  final kategori = 'Cetak';
+                  final user = currentUserReference;
+                  final status = 'Open';
+
+                  final cetakRecordData = createCetakRecordData(
+                    judulCetak: judulCetak,
+                    mediaCetak: mediaCetak,
+                    jumlahCetak: jumlahCetak,
+                    ukuranCetak: ukuranCetak,
+                    imageCetak: imageCetak,
+                    deadlineCetak: deadlineCetak,
+                    kategori: kategori,
+                    user: user,
+                    status: status,
+                  );
+
+                  await CetakRecord.collection.doc().set(cetakRecordData);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.add_box_outlined,
@@ -211,21 +240,48 @@ class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
                                 ),
                               ),
                             ),
-                            FlutterFlowRadioButton(
-                              options: ['Spanduk', 'Banner', 'Poster / Flyer'],
-                              onChanged: (value) {
-                                setState(() => radioButtonValue = value);
-                              },
-                              optionHeight: 25,
-                              textStyle: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'DM Sans',
+                            StreamBuilder<List<JenisCetakRecord>>(
+                              stream: queryJenisCetakRecord(
+                                singleRecord: true,
                               ),
-                              buttonPosition: RadioButtonPosition.left,
-                              direction: Axis.vertical,
-                              radioButtonColor: FlutterFlowTheme.secondaryColor,
-                              toggleable: false,
-                              horizontalAlignment: WrapAlignment.start,
-                              verticalAlignment: WrapCrossAlignment.start,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                List<JenisCetakRecord>
+                                    dropDownJenisCetakRecordList =
+                                    snapshot.data;
+                                // Customize what your widget looks like with no query results.
+                                if (snapshot.data.isEmpty) {
+                                  // return Container();
+                                  // For now, we'll just include some dummy data.
+                                  dropDownJenisCetakRecordList =
+                                      createDummyJenisCetakRecord(count: 1);
+                                }
+                                final dropDownJenisCetakRecord =
+                                    dropDownJenisCetakRecordList.first;
+                                return FlutterFlowDropDown(
+                                  options:
+                                      dropDownJenisCetakRecord.jenis.toList(),
+                                  onChanged: (value) {
+                                    setState(() => dropDownValue = value);
+                                  },
+                                  width: double.infinity,
+                                  height: 40,
+                                  textStyle:
+                                      FlutterFlowTheme.bodyText2.override(
+                                    fontFamily: 'DM Sans',
+                                  ),
+                                  fillColor: Colors.white,
+                                  elevation: 2,
+                                  borderColor: Colors.transparent,
+                                  borderWidth: 0,
+                                  borderRadius: 0,
+                                  margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                );
+                              },
                             )
                           ],
                         ),

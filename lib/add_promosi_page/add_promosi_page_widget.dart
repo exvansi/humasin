@@ -1,7 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
-import '../flutter_flow/flutter_flow_radio_button.dart';
+import '../flutter_flow/flutter_flow_drop_down_template.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/upload_media.dart';
@@ -19,7 +19,7 @@ class AddPromosiPageWidget extends StatefulWidget {
 
 class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
   DateTime datePicked = DateTime.now();
-  String radioButtonValue;
+  String dropDownValue;
   TextEditingController textController;
   String uploadedFileUrl1 = '';
   String uploadedFileUrl2 = '';
@@ -58,11 +58,11 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                     return;
                   }
                   final judulPromosi = textController.text;
-                  final mediaPromosi = radioButtonValue;
+                  final mediaPromosi = dropDownValue;
                   final waktuTayangPromosi = datePicked;
                   final imagePromosi = uploadedFileUrl1;
                   final videoPromosi = uploadedFileUrl2;
-                  final kategori = 'promosi';
+                  final kategori = 'Promosi';
                   final user = currentUserReference;
                   final status = 'Open';
 
@@ -232,25 +232,48 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                                 ),
                               ),
                             ),
-                            FlutterFlowRadioButton(
-                              options: [
-                                'Instagram',
-                                'Youtube',
-                                'Instagram dan Youtube'
-                              ],
-                              onChanged: (value) {
-                                setState(() => radioButtonValue = value);
-                              },
-                              optionHeight: 25,
-                              textStyle: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'DM Sans',
+                            StreamBuilder<List<MediaPromosiRecord>>(
+                              stream: queryMediaPromosiRecord(
+                                singleRecord: true,
                               ),
-                              buttonPosition: RadioButtonPosition.left,
-                              direction: Axis.vertical,
-                              radioButtonColor: FlutterFlowTheme.secondaryColor,
-                              toggleable: false,
-                              horizontalAlignment: WrapAlignment.start,
-                              verticalAlignment: WrapCrossAlignment.start,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                List<MediaPromosiRecord>
+                                    dropDownMediaPromosiRecordList =
+                                    snapshot.data;
+                                // Customize what your widget looks like with no query results.
+                                if (snapshot.data.isEmpty) {
+                                  // return Container();
+                                  // For now, we'll just include some dummy data.
+                                  dropDownMediaPromosiRecordList =
+                                      createDummyMediaPromosiRecord(count: 1);
+                                }
+                                final dropDownMediaPromosiRecord =
+                                    dropDownMediaPromosiRecordList.first;
+                                return FlutterFlowDropDown(
+                                  options:
+                                      dropDownMediaPromosiRecord.media.toList(),
+                                  onChanged: (value) {
+                                    setState(() => dropDownValue = value);
+                                  },
+                                  width: double.infinity,
+                                  height: 40,
+                                  textStyle:
+                                      FlutterFlowTheme.bodyText2.override(
+                                    fontFamily: 'DM Sans',
+                                  ),
+                                  fillColor: Colors.white,
+                                  elevation: 2,
+                                  borderColor: Colors.transparent,
+                                  borderWidth: 0,
+                                  borderRadius: 0,
+                                  margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                );
+                              },
                             )
                           ],
                         ),

@@ -1,6 +1,9 @@
-import '../flutter_flow/flutter_flow_radio_button.dart';
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_drop_down_template.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +18,7 @@ class AddStudioPageWidget extends StatefulWidget {
 class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
   DateTime datePicked = DateTime.now();
   TextEditingController textController3;
-  String radioButtonValue;
+  String dropDownValue;
   TextEditingController textController1;
   TextEditingController textController2;
   final formKey = GlobalKey<FormState>();
@@ -51,8 +54,30 @@ class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: IconButton(
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  if (!formKey.currentState.validate()) {
+                    return;
+                  }
+                  final judulStudio = textController1.text;
+                  final jenisStudio = dropDownValue;
+                  final jumlahOrang = int.parse(textController2.text);
+                  final waktuStudio = datePicked;
+                  final kategori = 'Studio';
+                  final user = currentUserReference;
+                  final status = 'Open';
+
+                  final studioRecordData = createStudioRecordData(
+                    judulStudio: judulStudio,
+                    jenisStudio: jenisStudio,
+                    jumlahOrang: jumlahOrang,
+                    waktuStudio: waktuStudio,
+                    kategori: kategori,
+                    user: user,
+                    status: status,
+                  );
+
+                  await StudioRecord.collection.doc().set(studioRecordData);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.add_box_outlined,
@@ -206,26 +231,48 @@ class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
                                 ),
                               ),
                             ),
-                            FlutterFlowRadioButton(
-                              options: [
-                                'Studio Foto',
-                                'Podcast',
-                                'Talkshow',
-                                'Rekaman Video Pengajaran'
-                              ],
-                              onChanged: (value) {
-                                setState(() => radioButtonValue = value);
-                              },
-                              optionHeight: 25,
-                              textStyle: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'DM Sans',
+                            StreamBuilder<List<JenisStudioRecord>>(
+                              stream: queryJenisStudioRecord(
+                                singleRecord: true,
                               ),
-                              buttonPosition: RadioButtonPosition.left,
-                              direction: Axis.vertical,
-                              radioButtonColor: FlutterFlowTheme.secondaryColor,
-                              toggleable: false,
-                              horizontalAlignment: WrapAlignment.start,
-                              verticalAlignment: WrapCrossAlignment.start,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                List<JenisStudioRecord>
+                                    dropDownJenisStudioRecordList =
+                                    snapshot.data;
+                                // Customize what your widget looks like with no query results.
+                                if (snapshot.data.isEmpty) {
+                                  // return Container();
+                                  // For now, we'll just include some dummy data.
+                                  dropDownJenisStudioRecordList =
+                                      createDummyJenisStudioRecord(count: 1);
+                                }
+                                final dropDownJenisStudioRecord =
+                                    dropDownJenisStudioRecordList.first;
+                                return FlutterFlowDropDown(
+                                  options:
+                                      dropDownJenisStudioRecord.jenis.toList(),
+                                  onChanged: (value) {
+                                    setState(() => dropDownValue = value);
+                                  },
+                                  width: double.infinity,
+                                  height: 40,
+                                  textStyle:
+                                      FlutterFlowTheme.bodyText2.override(
+                                    fontFamily: 'DM Sans',
+                                  ),
+                                  fillColor: Colors.white,
+                                  elevation: 2,
+                                  borderColor: Colors.transparent,
+                                  borderWidth: 0,
+                                  borderRadius: 0,
+                                  margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                );
+                              },
                             )
                           ],
                         ),

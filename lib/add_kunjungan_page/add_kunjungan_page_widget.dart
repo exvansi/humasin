@@ -1,5 +1,8 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,8 +56,32 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: IconButton(
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  if (!formKey.currentState.validate()) {
+                    return;
+                  }
+                  final waktuKunjungan = datePicked;
+                  final namaLengkap = textController2.text;
+                  final asalInstansi = textController3.text;
+                  final keperluan = textController4.text;
+                  final noHp = textController5.text;
+                  final kategori = 'Kunjungan';
+                  final user = currentUserReference;
+
+                  final kunjunganRecordData = createKunjunganRecordData(
+                    waktuKunjungan: waktuKunjungan,
+                    namaLengkap: namaLengkap,
+                    asalInstansi: asalInstansi,
+                    keperluan: keperluan,
+                    noHp: noHp,
+                    kategori: kategori,
+                    user: user,
+                  );
+
+                  await KunjunganRecord.collection
+                      .doc()
+                      .set(kunjunganRecordData);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.add_box_outlined,
@@ -218,7 +245,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Text(
-                                'Namae Lengkap',
+                                'Nama Lengkap (perwakilan)',
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'DM Sans',
                                   color: FlutterFlowTheme.primaryColor,

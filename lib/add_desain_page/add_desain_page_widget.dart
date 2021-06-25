@@ -1,6 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_radio_button.dart';
+import '../flutter_flow/flutter_flow_drop_down_template.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +17,7 @@ class AddDesainPageWidget extends StatefulWidget {
 
 class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
   DateTime datePicked = DateTime.now();
-  String radioButtonValue;
+  String dropDownValue;
   TextEditingController textController1;
   TextEditingController textController2;
   final formKey = GlobalKey<FormState>();
@@ -56,8 +56,8 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                     return;
                   }
                   final judulDesain = textController1.text;
-                  final jenisDesain = radioButtonValue;
-                  final kategori = 'desain';
+                  final jenisDesain = dropDownValue;
+                  final kategori = 'Desain';
                   final keteranganDesain = textController2.text;
                   final deadlineDesain = datePicked;
                   final user = currentUserReference;
@@ -228,25 +228,48 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                                 ),
                               ),
                             ),
-                            FlutterFlowRadioButton(
-                              options: [
-                                'Desain Grafis',
-                                'Desain Videografis',
-                                'Kombinasi keduanya'
-                              ],
-                              onChanged: (value) {
-                                setState(() => radioButtonValue = value);
-                              },
-                              optionHeight: 25,
-                              textStyle: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'DM Sans',
+                            StreamBuilder<List<JenisDesainRecord>>(
+                              stream: queryJenisDesainRecord(
+                                singleRecord: true,
                               ),
-                              buttonPosition: RadioButtonPosition.left,
-                              direction: Axis.vertical,
-                              radioButtonColor: Colors.blue,
-                              toggleable: false,
-                              horizontalAlignment: WrapAlignment.start,
-                              verticalAlignment: WrapCrossAlignment.start,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                List<JenisDesainRecord>
+                                    dropDownJenisDesainRecordList =
+                                    snapshot.data;
+                                // Customize what your widget looks like with no query results.
+                                if (snapshot.data.isEmpty) {
+                                  // return Container();
+                                  // For now, we'll just include some dummy data.
+                                  dropDownJenisDesainRecordList =
+                                      createDummyJenisDesainRecord(count: 1);
+                                }
+                                final dropDownJenisDesainRecord =
+                                    dropDownJenisDesainRecordList.first;
+                                return FlutterFlowDropDown(
+                                  options:
+                                      dropDownJenisDesainRecord.jenis.toList(),
+                                  onChanged: (value) {
+                                    setState(() => dropDownValue = value);
+                                  },
+                                  width: double.infinity,
+                                  height: 40,
+                                  textStyle:
+                                      FlutterFlowTheme.bodyText2.override(
+                                    fontFamily: 'DM Sans',
+                                  ),
+                                  fillColor: Colors.white,
+                                  elevation: 2,
+                                  borderColor: Colors.transparent,
+                                  borderWidth: 0,
+                                  borderRadius: 0,
+                                  margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                );
+                              },
                             )
                           ],
                         ),
@@ -269,7 +292,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Text(
-                                'Tuliskan secara lengkap keterangan desain yang diperlukan.',
+                                'Tuliskan secara lengkap keterangan desain yang diperlukan (deskripsi, waktu, tempat, link, kontak, dll)',
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'DM Sans',
                                   color: FlutterFlowTheme.primaryColor,

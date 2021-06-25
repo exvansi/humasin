@@ -375,26 +375,439 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                         )
                       ],
                     ),
-                    Text(
-                      'Tab View 3',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'DM Sans',
-                        fontSize: 32,
-                      ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Text(
+                            'Status Layanan Peliputan',
+                            style: FlutterFlowTheme.subtitle1.override(
+                              fontFamily: 'DM Sans',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: StreamBuilder<List<PeliputanRecord>>(
+                            stream: queryPeliputanRecord(
+                              queryBuilder: (peliputanRecord) =>
+                                  peliputanRecord.where('user',
+                                      isEqualTo: currentUserReference),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              List<PeliputanRecord>
+                                  listViewPeliputanRecordList = snapshot.data;
+                              // Customize what your widget looks like with no query results.
+                              if (snapshot.data.isEmpty) {
+                                // return Container();
+                                // For now, we'll just include some dummy data.
+                                listViewPeliputanRecordList =
+                                    createDummyPeliputanRecord(count: 4);
+                              }
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewPeliputanRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewPeliputanRecord =
+                                        listViewPeliputanRecordList[
+                                            listViewIndex];
+                                    return Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0xFFF5F5F5),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    10, 5, 5, 5),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      listViewPeliputanRecord
+                                                          .judulPeliputan,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'DM Sans',
+                                                        color:
+                                                            Color(0xFF16107D),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      dateTimeFormat(
+                                                          'yMMMd',
+                                                          listViewPeliputanRecord
+                                                              .waktuPeliputan),
+                                                      style: FlutterFlowTheme
+                                                          .subtitle1
+                                                          .override(
+                                                        fontFamily: 'DM Sans',
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  5, 5, 10, 5),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'Status',
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'DM Sans',
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    listViewPeliputanRecord
+                                                        .status,
+                                                    style: FlutterFlowTheme
+                                                        .subtitle2
+                                                        .override(
+                                                      fontFamily: 'DM Sans',
+                                                      color: Color(0xFF03A9F4),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
                     ),
-                    Text(
-                      'Tab View 4',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'DM Sans',
-                        fontSize: 32,
-                      ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Text(
+                            'Status Layanan Percetakan',
+                            style: FlutterFlowTheme.subtitle1.override(
+                              fontFamily: 'DM Sans',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: StreamBuilder<List<CetakRecord>>(
+                            stream: queryCetakRecord(
+                              queryBuilder: (cetakRecord) => cetakRecord.where(
+                                  'user',
+                                  isEqualTo: currentUserReference),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              List<CetakRecord> listViewCetakRecordList =
+                                  snapshot.data;
+                              // Customize what your widget looks like with no query results.
+                              if (snapshot.data.isEmpty) {
+                                // return Container();
+                                // For now, we'll just include some dummy data.
+                                listViewCetakRecordList =
+                                    createDummyCetakRecord(count: 4);
+                              }
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewCetakRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewCetakRecord =
+                                        listViewCetakRecordList[listViewIndex];
+                                    return Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0xFFF5F5F5),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    10, 5, 5, 5),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      listViewCetakRecord
+                                                          .judulCetak,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'DM Sans',
+                                                        color:
+                                                            Color(0xFF16107D),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      dateTimeFormat(
+                                                          'yMMMd',
+                                                          listViewCetakRecord
+                                                              .deadlineCetak),
+                                                      style: FlutterFlowTheme
+                                                          .subtitle1
+                                                          .override(
+                                                        fontFamily: 'DM Sans',
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  5, 5, 10, 5),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'Status',
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'DM Sans',
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    listViewCetakRecord.status,
+                                                    style: FlutterFlowTheme
+                                                        .subtitle2
+                                                        .override(
+                                                      fontFamily: 'DM Sans',
+                                                      color: Color(0xFF03A9F4),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
                     ),
-                    Text(
-                      'Tab View 5',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'DM Sans',
-                        fontSize: 32,
-                      ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Text(
+                            'Status Layanan Studio',
+                            style: FlutterFlowTheme.subtitle1.override(
+                              fontFamily: 'DM Sans',
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: StreamBuilder<List<StudioRecord>>(
+                            stream: queryStudioRecord(
+                              queryBuilder: (studioRecord) =>
+                                  studioRecord.where('user',
+                                      isEqualTo: currentUserReference),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              List<StudioRecord> listViewStudioRecordList =
+                                  snapshot.data;
+                              // Customize what your widget looks like with no query results.
+                              if (snapshot.data.isEmpty) {
+                                // return Container();
+                                // For now, we'll just include some dummy data.
+                                listViewStudioRecordList =
+                                    createDummyStudioRecord(count: 4);
+                              }
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewStudioRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewStudioRecord =
+                                        listViewStudioRecordList[listViewIndex];
+                                    return Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0xFFF5F5F5),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    10, 5, 5, 5),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      listViewStudioRecord
+                                                          .judulStudio,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'DM Sans',
+                                                        color:
+                                                            Color(0xFF16107D),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      dateTimeFormat(
+                                                          'yMMMd',
+                                                          listViewStudioRecord
+                                                              .waktuStudio),
+                                                      style: FlutterFlowTheme
+                                                          .subtitle1
+                                                          .override(
+                                                        fontFamily: 'DM Sans',
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  5, 5, 10, 5),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'Status',
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'DM Sans',
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    listViewStudioRecord.status,
+                                                    style: FlutterFlowTheme
+                                                        .subtitle2
+                                                        .override(
+                                                      fontFamily: 'DM Sans',
+                                                      color: Color(0xFF03A9F4),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),

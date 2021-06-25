@@ -116,7 +116,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+                          padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
                           child: Text(
                             'Selamat Datang,',
                             style: FlutterFlowTheme.subtitle2.override(
@@ -559,25 +559,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Icon(
-                                                        Icons.star,
+                                                        Icons.star_rate,
                                                         color:
                                                             Color(0xFFFBD72E),
                                                         size: 24,
                                                       ),
                                                       Icon(
-                                                        Icons.star,
+                                                        Icons.star_rate,
                                                         color:
                                                             Color(0xFFFBD72E),
                                                         size: 24,
                                                       ),
                                                       Icon(
-                                                        Icons.star,
+                                                        Icons.star_rate,
                                                         color:
                                                             Color(0xFFFBD72E),
                                                         size: 24,
                                                       ),
                                                       Icon(
-                                                        Icons.star,
+                                                        Icons.star_rate,
                                                         color:
                                                             Color(0xFFFBD72E),
                                                         size: 24,

@@ -7,6 +7,14 @@ import 'package:latlong/latlong.dart';
 import 'users_record.dart';
 import 'desain_record.dart';
 import 'promosi_record.dart';
+import 'peliputan_record.dart';
+import 'studio_record.dart';
+import 'jenis_desain_record.dart';
+import 'media_promosi_record.dart';
+import 'jenis_studio_record.dart';
+import 'cetak_record.dart';
+import 'jenis_cetak_record.dart';
+import 'kunjungan_record.dart';
 
 part 'serializers.g.dart';
 
@@ -16,6 +24,14 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   UsersRecord,
   DesainRecord,
   PromosiRecord,
+  PeliputanRecord,
+  StudioRecord,
+  JenisDesainRecord,
+  MediaPromosiRecord,
+  JenisStudioRecord,
+  CetakRecord,
+  JenisCetakRecord,
+  KunjunganRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

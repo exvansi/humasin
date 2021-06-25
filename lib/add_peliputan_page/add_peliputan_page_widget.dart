@@ -1,6 +1,9 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,8 +54,32 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               child: IconButton(
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  if (!formKey.currentState.validate()) {
+                    return;
+                  }
+                  final judulPeliputan = textController1.text;
+                  final tempatPeliputan = textController2.text;
+                  final waktuPeliputan = datePicked;
+                  final publikasiPeliputan = radioButtonValue;
+                  final kategori = 'Peliputan';
+                  final user = currentUserReference;
+                  final status = 'Open';
+
+                  final peliputanRecordData = createPeliputanRecordData(
+                    judulPeliputan: judulPeliputan,
+                    tempatPeliputan: tempatPeliputan,
+                    waktuPeliputan: waktuPeliputan,
+                    publikasiPeliputan: publikasiPeliputan,
+                    kategori: kategori,
+                    user: user,
+                    status: status,
+                  );
+
+                  await PeliputanRecord.collection
+                      .doc()
+                      .set(peliputanRecordData);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.add_box_outlined,
