@@ -1,13 +1,8 @@
 import 'dart:async';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:latlong/latlong.dart';
-
-import 'schema_util.dart';
+import 'index.dart';
 import 'serializers.dart';
+import 'package:built_value/built_value.dart';
 
 part 'jenis_desain_record.g.dart';
 
@@ -45,12 +40,3 @@ abstract class JenisDesainRecord
 
 Map<String, dynamic> createJenisDesainRecordData() => serializers.toFirestore(
     JenisDesainRecord.serializer, JenisDesainRecord((j) => j..jenis = null));
-
-JenisDesainRecord get dummyJenisDesainRecord {
-  final builder = JenisDesainRecordBuilder()
-    ..jenis = ListBuilder([dummyString, dummyString]);
-  return builder.build();
-}
-
-List<JenisDesainRecord> createDummyJenisDesainRecord({int count}) =>
-    List.generate(count, (_) => dummyJenisDesainRecord);

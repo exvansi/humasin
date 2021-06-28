@@ -72,6 +72,7 @@ class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
                   final kategori = 'Cetak';
                   final user = currentUserReference;
                   final status = 'Open';
+                  final createdAt = getCurrentTimestamp;
 
                   final cetakRecordData = createCetakRecordData(
                     judulCetak: judulCetak,
@@ -83,6 +84,7 @@ class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
                     kategori: kategori,
                     user: user,
                     status: status,
+                    createdAt: createdAt,
                   );
 
                   await CetakRecord.collection.doc().set(cetakRecordData);
@@ -255,10 +257,12 @@ class _AddCetakPageWidgetState extends State<AddCetakPageWidget> {
                                     snapshot.data;
                                 // Customize what your widget looks like with no query results.
                                 if (snapshot.data.isEmpty) {
-                                  // return Container();
-                                  // For now, we'll just include some dummy data.
-                                  dropDownJenisCetakRecordList =
-                                      createDummyJenisCetakRecord(count: 1);
+                                  return Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: Text('No results.'),
+                                    ),
+                                  );
                                 }
                                 final dropDownJenisCetakRecord =
                                     dropDownJenisCetakRecordList.first;

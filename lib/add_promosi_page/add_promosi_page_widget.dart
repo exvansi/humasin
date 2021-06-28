@@ -65,6 +65,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                   final kategori = 'Promosi';
                   final user = currentUserReference;
                   final status = 'Open';
+                  final createdAt = getCurrentTimestamp;
 
                   final promosiRecordData = createPromosiRecordData(
                     judulPromosi: judulPromosi,
@@ -75,6 +76,7 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                     kategori: kategori,
                     user: user,
                     status: status,
+                    createdAt: createdAt,
                   );
 
                   await PromosiRecord.collection.doc().set(promosiRecordData);
@@ -247,10 +249,12 @@ class _AddPromosiPageWidgetState extends State<AddPromosiPageWidget> {
                                     snapshot.data;
                                 // Customize what your widget looks like with no query results.
                                 if (snapshot.data.isEmpty) {
-                                  // return Container();
-                                  // For now, we'll just include some dummy data.
-                                  dropDownMediaPromosiRecordList =
-                                      createDummyMediaPromosiRecord(count: 1);
+                                  return Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: Text('No results.'),
+                                    ),
+                                  );
                                 }
                                 final dropDownMediaPromosiRecord =
                                     dropDownMediaPromosiRecordList.first;

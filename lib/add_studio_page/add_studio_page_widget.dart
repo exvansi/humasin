@@ -65,6 +65,7 @@ class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
                   final kategori = 'Studio';
                   final user = currentUserReference;
                   final status = 'Open';
+                  final createdAt = getCurrentTimestamp;
 
                   final studioRecordData = createStudioRecordData(
                     judulStudio: judulStudio,
@@ -74,6 +75,7 @@ class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
                     kategori: kategori,
                     user: user,
                     status: status,
+                    createdAt: createdAt,
                   );
 
                   await StudioRecord.collection.doc().set(studioRecordData);
@@ -246,10 +248,12 @@ class _AddStudioPageWidgetState extends State<AddStudioPageWidget> {
                                     snapshot.data;
                                 // Customize what your widget looks like with no query results.
                                 if (snapshot.data.isEmpty) {
-                                  // return Container();
-                                  // For now, we'll just include some dummy data.
-                                  dropDownJenisStudioRecordList =
-                                      createDummyJenisStudioRecord(count: 1);
+                                  return Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: Text('No results.'),
+                                    ),
+                                  );
                                 }
                                 final dropDownJenisStudioRecord =
                                     dropDownJenisStudioRecordList.first;

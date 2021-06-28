@@ -114,10 +114,12 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                                   snapshot.data;
                               // Customize what your widget looks like with no query results.
                               if (snapshot.data.isEmpty) {
-                                // return Container();
-                                // For now, we'll just include some dummy data.
-                                listViewDesainRecordList =
-                                    createDummyDesainRecord(count: 4);
+                                return Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No results.'),
+                                  ),
+                                );
                               }
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -258,10 +260,12 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                                   snapshot.data;
                               // Customize what your widget looks like with no query results.
                               if (snapshot.data.isEmpty) {
-                                // return Container();
-                                // For now, we'll just include some dummy data.
-                                listViewPromosiRecordList =
-                                    createDummyPromosiRecord(count: 4);
+                                return Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No results.'),
+                                  ),
+                                );
                               }
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -404,10 +408,12 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                                   listViewPeliputanRecordList = snapshot.data;
                               // Customize what your widget looks like with no query results.
                               if (snapshot.data.isEmpty) {
-                                // return Container();
-                                // For now, we'll just include some dummy data.
-                                listViewPeliputanRecordList =
-                                    createDummyPeliputanRecord(count: 4);
+                                return Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No results.'),
+                                  ),
+                                );
                               }
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -550,10 +556,12 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                                   snapshot.data;
                               // Customize what your widget looks like with no query results.
                               if (snapshot.data.isEmpty) {
-                                // return Container();
-                                // For now, we'll just include some dummy data.
-                                listViewCetakRecordList =
-                                    createDummyCetakRecord(count: 4);
+                                return Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No results.'),
+                                  ),
+                                );
                               }
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -694,10 +702,12 @@ class _TicketPageWidgetState extends State<TicketPageWidget> {
                                   snapshot.data;
                               // Customize what your widget looks like with no query results.
                               if (snapshot.data.isEmpty) {
-                                // return Container();
-                                // For now, we'll just include some dummy data.
-                                listViewStudioRecordList =
-                                    createDummyStudioRecord(count: 4);
+                                return Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No results.'),
+                                  ),
+                                );
                               }
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 5, 5, 5),

@@ -142,9 +142,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         List<UsersRecord> rowUsersRecordList = snapshot.data;
                         // Customize what your widget looks like with no query results.
                         if (snapshot.data.isEmpty) {
-                          // return Container();
-                          // For now, we'll just include some dummy data.
-                          rowUsersRecordList = createDummyUsersRecord(count: 1);
+                          return Container(
+                            height: 100,
+                            child: Center(
+                              child: Text('No results.'),
+                            ),
+                          );
                         }
                         final rowUsersRecord = rowUsersRecordList.first;
                         return Row(

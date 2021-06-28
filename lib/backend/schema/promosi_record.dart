@@ -1,13 +1,8 @@
 import 'dart:async';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:latlong/latlong.dart';
-
-import 'schema_util.dart';
+import 'index.dart';
 import 'serializers.dart';
+import 'package:built_value/built_value.dart';
 
 part 'promosi_record.g.dart';
 
@@ -43,6 +38,10 @@ abstract class PromosiRecord
 
   @nullable
   String get status;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_at')
+  DateTime get createdAt;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -82,6 +81,7 @@ Map<String, dynamic> createPromosiRecordData({
   String kategori,
   DocumentReference user,
   String status,
+  DateTime createdAt,
 }) =>
     serializers.toFirestore(
         PromosiRecord.serializer,
@@ -93,19 +93,5 @@ Map<String, dynamic> createPromosiRecordData({
           ..videoPromosi = videoPromosi
           ..kategori = kategori
           ..user = user
-          ..status = status));
-
-PromosiRecord get dummyPromosiRecord {
-  final builder = PromosiRecordBuilder()
-    ..judulPromosi = dummyString
-    ..mediaPromosi = dummyString
-    ..waktuTayangPromosi = dummyTimestamp
-    ..imagePromosi = dummyImagePath
-    ..videoPromosi = dummyVideoPath
-    ..kategori = dummyString
-    ..status = dummyString;
-  return builder.build();
-}
-
-List<PromosiRecord> createDummyPromosiRecord({int count}) =>
-    List.generate(count, (_) => dummyPromosiRecord);
+          ..status = status
+          ..createdAt = createdAt));

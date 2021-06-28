@@ -1,13 +1,8 @@
 import 'dart:async';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:latlong/latlong.dart';
-
-import 'schema_util.dart';
+import 'index.dart';
 import 'serializers.dart';
+import 'package:built_value/built_value.dart';
 
 part 'cetak_record.g.dart';
 
@@ -46,6 +41,10 @@ abstract class CetakRecord implements Built<CetakRecord, CetakRecordBuilder> {
 
   @nullable
   String get status;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_at')
+  DateTime get createdAt;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -87,6 +86,7 @@ Map<String, dynamic> createCetakRecordData({
   String kategori,
   DocumentReference user,
   String status,
+  DateTime createdAt,
 }) =>
     serializers.toFirestore(
         CetakRecord.serializer,
@@ -99,20 +99,5 @@ Map<String, dynamic> createCetakRecordData({
           ..deadlineCetak = deadlineCetak
           ..kategori = kategori
           ..user = user
-          ..status = status));
-
-CetakRecord get dummyCetakRecord {
-  final builder = CetakRecordBuilder()
-    ..judulCetak = dummyString
-    ..mediaCetak = dummyString
-    ..jumlahCetak = dummyInteger
-    ..ukuranCetak = dummyString
-    ..imageCetak = dummyImagePath
-    ..deadlineCetak = dummyTimestamp
-    ..kategori = dummyString
-    ..status = dummyString;
-  return builder.build();
-}
-
-List<CetakRecord> createDummyCetakRecord({int count}) =>
-    List.generate(count, (_) => dummyCetakRecord);
+          ..status = status
+          ..createdAt = createdAt));

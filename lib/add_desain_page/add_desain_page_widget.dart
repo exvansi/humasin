@@ -62,6 +62,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                   final deadlineDesain = datePicked;
                   final user = currentUserReference;
                   final status = 'Open';
+                  final createdAt = getCurrentTimestamp;
 
                   final desainRecordData = createDesainRecordData(
                     judulDesain: judulDesain,
@@ -71,6 +72,7 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                     deadlineDesain: deadlineDesain,
                     user: user,
                     status: status,
+                    createdAt: createdAt,
                   );
 
                   await DesainRecord.collection.doc().set(desainRecordData);
@@ -243,10 +245,12 @@ class _AddDesainPageWidgetState extends State<AddDesainPageWidget> {
                                     snapshot.data;
                                 // Customize what your widget looks like with no query results.
                                 if (snapshot.data.isEmpty) {
-                                  // return Container();
-                                  // For now, we'll just include some dummy data.
-                                  dropDownJenisDesainRecordList =
-                                      createDummyJenisDesainRecord(count: 1);
+                                  return Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: Text('No results.'),
+                                    ),
+                                  );
                                 }
                                 final dropDownJenisDesainRecord =
                                     dropDownJenisDesainRecordList.first;

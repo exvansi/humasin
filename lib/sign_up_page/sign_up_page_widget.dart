@@ -15,22 +15,22 @@ class SignUpPageWidget extends StatefulWidget {
 
 class _SignUpPageWidgetState extends State<SignUpPageWidget> {
   TextEditingController cPasswordDaftarController;
-  bool passwordVisibility;
+  bool cPasswordDaftarVisibility;
   TextEditingController emailDaftarController;
   TextEditingController namaDaftarController;
   TextEditingController passwordDaftarController;
-  bool passwordVisibility;
+  bool passwordDaftarVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     cPasswordDaftarController = TextEditingController();
-    passwordVisibility = false;
+    cPasswordDaftarVisibility = false;
     emailDaftarController = TextEditingController();
     namaDaftarController = TextEditingController();
     passwordDaftarController = TextEditingController();
-    passwordVisibility = false;
+    passwordDaftarVisibility = false;
   }
 
   @override
@@ -192,7 +192,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           child: TextFormField(
                             controller: passwordDaftarController,
-                            obscureText: !passwordVisibility,
+                            obscureText: !passwordDaftarVisibility,
                             decoration: InputDecoration(
                               hintText: 'Password',
                               hintStyle: GoogleFonts.getFont(
@@ -223,11 +223,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                               ),
                               suffixIcon: InkWell(
                                 onTap: () => setState(
-                                  () =>
-                                      passwordVisibility = !passwordVisibility,
+                                  () => passwordDaftarVisibility =
+                                      !passwordDaftarVisibility,
                                 ),
                                 child: Icon(
-                                  passwordVisibility
+                                  passwordDaftarVisibility
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
                                   size: 22,
@@ -257,7 +257,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           child: TextFormField(
                             controller: cPasswordDaftarController,
-                            obscureText: !passwordVisibility,
+                            obscureText: !cPasswordDaftarVisibility,
                             decoration: InputDecoration(
                               hintText: 'Confirm Password',
                               hintStyle: GoogleFonts.getFont(
@@ -288,11 +288,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                               ),
                               suffixIcon: InkWell(
                                 onTap: () => setState(
-                                  () =>
-                                      passwordVisibility = !passwordVisibility,
+                                  () => cPasswordDaftarVisibility =
+                                      !cPasswordDaftarVisibility,
                                 ),
                                 child: Icon(
-                                  passwordVisibility
+                                  cPasswordDaftarVisibility
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
                                   size: 22,

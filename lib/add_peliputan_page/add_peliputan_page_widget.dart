@@ -64,6 +64,7 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
                   final kategori = 'Peliputan';
                   final user = currentUserReference;
                   final status = 'Open';
+                  final createdAt = getCurrentTimestamp;
 
                   final peliputanRecordData = createPeliputanRecordData(
                     judulPeliputan: judulPeliputan,
@@ -73,6 +74,7 @@ class _AddPeliputanPageWidgetState extends State<AddPeliputanPageWidget> {
                     kategori: kategori,
                     user: user,
                     status: status,
+                    createdAt: createdAt,
                   );
 
                   await PeliputanRecord.collection

@@ -1,13 +1,8 @@
 import 'dart:async';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:latlong/latlong.dart';
-
-import 'schema_util.dart';
+import 'index.dart';
 import 'serializers.dart';
+import 'package:built_value/built_value.dart';
 
 part 'kunjungan_record.g.dart';
 
@@ -40,6 +35,10 @@ abstract class KunjunganRecord
 
   @nullable
   DocumentReference get user;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_at')
+  DateTime get createdAt;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -77,6 +76,7 @@ Map<String, dynamic> createKunjunganRecordData({
   String noHp,
   String kategori,
   DocumentReference user,
+  DateTime createdAt,
 }) =>
     serializers.toFirestore(
         KunjunganRecord.serializer,
@@ -87,18 +87,5 @@ Map<String, dynamic> createKunjunganRecordData({
           ..keperluan = keperluan
           ..noHp = noHp
           ..kategori = kategori
-          ..user = user));
-
-KunjunganRecord get dummyKunjunganRecord {
-  final builder = KunjunganRecordBuilder()
-    ..waktuKunjungan = dummyTimestamp
-    ..namaLengkap = dummyString
-    ..asalInstansi = dummyString
-    ..keperluan = dummyString
-    ..noHp = dummyString
-    ..kategori = dummyString;
-  return builder.build();
-}
-
-List<KunjunganRecord> createDummyKunjunganRecord({int count}) =>
-    List.generate(count, (_) => dummyKunjunganRecord);
+          ..user = user
+          ..createdAt = createdAt));

@@ -67,6 +67,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                   final noHp = textController5.text;
                   final kategori = 'Kunjungan';
                   final user = currentUserReference;
+                  final createdAt = getCurrentTimestamp;
 
                   final kunjunganRecordData = createKunjunganRecordData(
                     waktuKunjungan: waktuKunjungan,
@@ -76,6 +77,7 @@ class _AddKunjunganPageWidgetState extends State<AddKunjunganPageWidget> {
                     noHp: noHp,
                     kategori: kategori,
                     user: user,
+                    createdAt: createdAt,
                   );
 
                   await KunjunganRecord.collection

@@ -1,13 +1,8 @@
 import 'dart:async';
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:latlong/latlong.dart';
-
-import 'schema_util.dart';
+import 'index.dart';
 import 'serializers.dart';
+import 'package:built_value/built_value.dart';
 
 part 'peliputan_record.g.dart';
 
@@ -40,6 +35,10 @@ abstract class PeliputanRecord
   @nullable
   @BuiltValueField(wireName: 'publikasi_peliputan')
   bool get publikasiPeliputan;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_at')
+  DateTime get createdAt;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -77,6 +76,7 @@ Map<String, dynamic> createPeliputanRecordData({
   DocumentReference user,
   String status,
   bool publikasiPeliputan,
+  DateTime createdAt,
 }) =>
     serializers.toFirestore(
         PeliputanRecord.serializer,
@@ -87,18 +87,5 @@ Map<String, dynamic> createPeliputanRecordData({
           ..kategori = kategori
           ..user = user
           ..status = status
-          ..publikasiPeliputan = publikasiPeliputan));
-
-PeliputanRecord get dummyPeliputanRecord {
-  final builder = PeliputanRecordBuilder()
-    ..judulPeliputan = dummyString
-    ..tempatPeliputan = dummyString
-    ..waktuPeliputan = dummyTimestamp
-    ..kategori = dummyString
-    ..status = dummyString
-    ..publikasiPeliputan = dummyBoolean;
-  return builder.build();
-}
-
-List<PeliputanRecord> createDummyPeliputanRecord({int count}) =>
-    List.generate(count, (_) => dummyPeliputanRecord);
+          ..publikasiPeliputan = publikasiPeliputan
+          ..createdAt = createdAt));
